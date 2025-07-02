@@ -1,20 +1,34 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
-  name: argocd-bootstrap
+  name: bootstrap
   namespace: argocd
 spec:
-  project: default
-  source:
-    repoURL: git@github.com:huygiale-fi/test-argocd.git
-    targetRevision: main
-    path: bootstrap/**/base
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argocd
-  syncPolicy:
-    automated:
-      selfHeal: true
-      prune: false
-    syncOptions:
-      - CreateNamespace=true
+  generators:
+    - git:
+        repoURL: git@github.com:huygiale-fi/test-argocd.git
+        revision: main
+        files:
+          - path: bootstrap/**/base/config.json
+        requeueAfterSeconds: 30
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: '{{ appName }}''
+      name: '{{ appName }}'
+      namespace: argocd
+    spec:
+      project: default
+      source:
+        repoURL: git@github.com:huygiale-fi/test-argocd.git
+        targetRevision: main
+        path: '{{ path }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ destNamespace }}'
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
