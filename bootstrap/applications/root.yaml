@@ -8,14 +8,13 @@ spec:
   source:
     repoURL: git@github.com:huygiale-fi/test-argocd.git
     targetRevision: main
-    path: bootstrap/argocd/base
+    path: bootstrap/**/base
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
   syncPolicy:
     automated:
       selfHeal: true
-
       prune: false
     syncOptions:
       - CreateNamespace=true
