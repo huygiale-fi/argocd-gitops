@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: '{{ appName }}''
+        app.kubernetes.io/name: '{{ appName }}'
       name: '{{ appName }}'
       namespace: argocd
     spec:
