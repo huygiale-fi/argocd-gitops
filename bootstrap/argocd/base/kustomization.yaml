@@ -9,3 +9,6 @@ resources:
   - ingress.yaml
 patches:
   - path: patch-service-nodeport.yaml
+    target:
+      kind: Service
+      name: argocd-server
