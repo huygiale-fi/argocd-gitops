@@ -7,6 +7,5 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.13.3/manifests/install.yaml
   - github-secret.yaml
   - ingress.yaml
-  - service.yaml
 patches:
   - path: patch-service-nodeport.yaml
