@@ -13,14 +13,16 @@ spec:
       labels:
         app.kubernetes.io/name: shopnow-fe
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
-      - name: shopnow-fe
-        image: harbor.devops4u.online/shopnow/frontend:v2
-        imagePullPolicy: Always
-        ports:
-          - name: https
-            containerPort: 3000
-            protocol: TCP
+        - name: shopnow-fe
+          image: harbor.devops4u.online/shopnow/frontend:v2
+          imagePullPolicy: Always
+          ports:
+            - name: https
+              containerPort: 3000
+              protocol: TCP
       resources:
         request: 
           cpu: 10m
