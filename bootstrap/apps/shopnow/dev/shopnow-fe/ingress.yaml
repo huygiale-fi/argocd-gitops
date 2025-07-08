@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shopnow-fe
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: "shopnow-dev.devops4u.online"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: shopnow-fe
+                port:
+                  name: https
+  tls:
+    - hosts:
+        - "shopnow-dev.devops4u.online"
+      secretName: shopnow-dev-devops4u-online-tls
