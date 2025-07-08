@@ -8,7 +8,7 @@ spec:
     - git:
         files:
           - path: apps/**/dev/**/config.json
-        repoURL: git@github.com:salefronts/sf-argocd.git
+        repoURL: git@github.com:huygiale-fi/test-argocd.git
         requeueAfterSeconds: 20
         revision: ""
         template:
@@ -18,12 +18,12 @@ spec:
             project: ""
             source:
               path: "{{ path }}"
-              repoURL: git@github.com:salefronts/sf-argocd.git
+              repoURL: git@github.com:huygiale-fi/test-argocd.git
               targetRevision: ""
     - git:
         files:
           - path: apps/**/staging/**/config.json
-        repoURL: git@github.com:salefronts/sf-argocd.git
+        repoURL: git@github.com:huygiale-fi/test-argocd.git
         requeueAfterSeconds: 20
         revision: ""
         template:
@@ -33,12 +33,12 @@ spec:
             project: ""
             source:
               path: "{{ path }}"
-              repoURL: git@github.com:salefronts/sf-argocd.git
+              repoURL: git@github.com:huygiale-fi/test-argocd.git
               targetRevision: ""
     - git:
         files:
           - path: apps/**/production/**/config.json
-        repoURL: git@github.com:salefronts/sf-argocd.git
+        repoURL: git@github.com:huygiale-fi/test-argocd.git
         requeueAfterSeconds: 20
         revision: ""
         template:
@@ -48,12 +48,12 @@ spec:
             project: ""
             source:
               path: "{{ path }}"
-              repoURL: git@github.com:salefronts/sf-argocd.git
+              repoURL: git@github.com:huygiale-fi/test-argocd.git
               targetRevision: ""
     - git:
         files:
           - path: apps/**/test/**/config.json
-        repoURL: git@github.com:salefronts/sf-argocd.git
+        repoURL: git@github.com:huygiale-fi/test-argocd.git
         requeueAfterSeconds: 20
         revision: ""
         template:
@@ -63,12 +63,12 @@ spec:
             project: ""
             source:
               path: "{{ path }}"
-              repoURL: git@github.com:salefronts/sf-argocd.git
+              repoURL: git@github.com:huygiale-fi/test-argocd.git
               targetRevision: ""
     - git:
         files:
           - path: apps/**/main/**/config.json
-        repoURL: git@github.com:salefronts/sf-argocd.git
+        repoURL: git@github.com:huygiale-fi/test-argocd.git
         requeueAfterSeconds: 20
         revision: ""
         template:
@@ -78,7 +78,7 @@ spec:
             project: ""
             source:
               path: "{{ path }}"
-              repoURL: git@github.com:salefronts/sf-argocd.git
+              repoURL: git@github.com:huygiale-fi/test-argocd.git
               targetRevision: ""
   syncPolicy: {}
   template:
