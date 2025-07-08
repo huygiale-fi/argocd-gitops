@@ -6,4 +6,8 @@ metadata:
   creationTimestamp: null
   name: regcred
   namespace: default
+  annotations:
+    replicator.v1.mittwald.de/replicate-to: .*-(dev|staging|production|test|main)$
+    replicator.v1.mittwald.de/replication-allowed: "true"
+    replicator.v1.mittwald.de/replication-allowed-namespaces: .*
 type: kubernetes.io/dockerconfigjson
