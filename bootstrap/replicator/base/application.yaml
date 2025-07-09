@@ -11,6 +11,7 @@ spec:
     targetRevision: 2.11.0
     helm:
       releaseName: replicator
+      valuesFile: values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: replicator
