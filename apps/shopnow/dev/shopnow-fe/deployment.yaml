@@ -17,7 +17,7 @@ spec:
         - name: regcred
       containers:
         - name: shopnow-fe
-          image: harbor.devops4u.online/shopnow/frontend:v2
+          image: harbor.devops4u.online/shopnow/frontend:v1
           imagePullPolicy: Always
           ports:
             - name: https
