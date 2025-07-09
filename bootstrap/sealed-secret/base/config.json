@@ -1,0 +1,4 @@
+{
+  "appName": "sealed-secrets",
+  "destNamespace": "kube-system"
+}
