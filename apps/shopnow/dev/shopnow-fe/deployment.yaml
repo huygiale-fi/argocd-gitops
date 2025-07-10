@@ -26,25 +26,25 @@ spec:
           envFrom:
             - secretRef:
                 name: shopnow-fe
-          resources:
-            request: 
-              cpu: 10m
-              memory: 128Mi
-            limits:
-              cpu: 20m
-              memory: 228Mi
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            failureThreshold: 3
+          # resources:
+          #   request: 
+          #     cpu: 10m
+          #     memory: 128Mi
+          #   limits:
+          #     cpu: 20m
+          #     memory: 228Mi
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 3000
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 10
+          #   failureThreshold: 3
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 3000
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 10
+          #   failureThreshold: 3
 
