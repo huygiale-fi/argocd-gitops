@@ -1,0 +1,61 @@
+alertmanager:
+  enabled: true
+  persistentVolume:
+    enabled: true
+    size: 5Gi
+
+prometheus:
+  prometheusSpec:
+    retention: 15d
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
+          storageClassName: gp2
+
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 100m
+      limits:
+        memory: 700Mi
+        cpu: 300m
+
+grafana:
+  enabled: true
+  adminPassword: admin123
+  persistence:
+    enabled: true
+    size: 10Gi
+
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-kube-prometheus-prometheus.monitoring.svc:9090
+          access: proxy
+          isDefault: true
+
+  dashboards:
+    default:
+      node-overview:
+        gnetId: 1860
+        revision: 23
+        datasource: Prometheus
+      k8s-pods:
+        gnetId: 13332
+        revision: 1
+        datasource: Prometheus
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
