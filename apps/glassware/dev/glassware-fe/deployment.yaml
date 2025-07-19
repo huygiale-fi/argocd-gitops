@@ -17,7 +17,7 @@ spec:
         - name: regcred
       containers:
         - name: glassware-fe
-          image: harbor.devops4u.online/shopnow/frontend:v1
+          image: harbor.devops4u.online/glass/glassware:v1
           imagePullPolicy: Always
           ports:
             - name: https
