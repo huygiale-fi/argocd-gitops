@@ -17,7 +17,7 @@ spec:
         - name: regcred
       containers:
         - name: glassware-fe
-          image: :ff7ebcd7
+          image: :harbor.devops4u.online/glass/glassware:ff7ebcd7
           imagePullPolicy: Always
           ports:
             - name: https
