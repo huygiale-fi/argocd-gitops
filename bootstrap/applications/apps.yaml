@@ -10,40 +10,40 @@ spec:
           - path: apps/**/dev/**/config.json
         repoURL: git@github.com:huygiale-fi/test-argocd.git
         requeueAfterSeconds: 20
-        revision: ""
+        revision: HEAD
     - git:
         files:
           - path: apps/**/staging/**/config.json
         repoURL: git@github.com:huygiale-fi/test-argocd.git
         requeueAfterSeconds: 20
-        revision: ""
+        revision: HEAD
     - git:
         files:
           - path: apps/**/production/**/config.json
         repoURL: git@github.com:huygiale-fi/test-argocd.git
         requeueAfterSeconds: 20
-        revision: ""
+        revision: HEAD
     - git:
         files:
           - path: apps/**/test/**/config.json
         repoURL: git@github.com:huygiale-fi/test-argocd.git
         requeueAfterSeconds: 20
-        revision: ""
+        revision: HEAD
     - git:
         files:
           - path: apps/**/main/**/config.json
         repoURL: git@github.com:huygiale-fi/test-argocd.git
         requeueAfterSeconds: 20
-        revision: ""
+        revision: HEAD
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: "{{ path.appName }}"
-      name: "{{ path.appName }}"
+        app.kubernetes.io/name: "{{ appName }}"
+      name: "{{ appName }}"
       namespace: argocd
     spec:
       destination:
-        namespace: "{{ path.destNamespace }}"
+        namespace: "{{ destNamespace }}"
         server: "https://kubernetes.default.svc"
       project: default
       source:
