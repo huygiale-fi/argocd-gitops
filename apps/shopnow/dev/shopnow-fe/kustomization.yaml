@@ -3,9 +3,9 @@ kind: Kustomization
 namespace: shopnow-dev
 
 resources:
-  # - ns.yaml
-  # - deployment.yaml
-  # - ingress.yaml
-  # - hpa.yaml
-  # - service.yaml
-  # - sealed-secret.yaml
+  - ns.yaml
+  - deployment.yaml
+  - ingress.yaml
+  - hpa.yaml
+  - service.yaml
+  - sealed-secret.yaml
