@@ -7,8 +7,8 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.13.3/manifests/install.yaml
   - github-secret.yaml
   - ingress.yaml
-# patches:
-#   - path: patch-service-nodeport.yaml
-#     target:
-#       kind: Service
-#       name: argocd-server
+patches:
+  - path: patch-argocd-cm.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-cm
