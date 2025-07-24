@@ -7,6 +7,7 @@ grafana:
     limits:
       cpu: 200m
       memory: 300Mi
+      
 prometheus:
   enabled: true
   prometheusSpec:
@@ -15,6 +16,8 @@ prometheus:
     evaluationInterval: 30s
     enableAdminAPI: false
     serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
     resources:
       requests:
         cpu: 100m
@@ -24,4 +27,40 @@ prometheus:
         memory: 600Mi
 
 alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    replicas: 1
+    retention: 120h
+    storage:
+      volumeClaimTemplate:
+        spec:
+          resources:
+            requests:
+              storage: 2Gi
+
+kubeStateMetrics:
+  enabled: true
+
+kubeApiServer:
+  enabled: false
+
+kubeControllerManager:
+  enabled: false
+
+coreDns:
+  enabled: false
+
+kubeDns:
+  enabled: false
+
+kubeEtcd:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
+
+kubeProxy:
+  enabled: false
+
+nodeExporter:
   enabled: false
