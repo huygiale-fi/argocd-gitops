@@ -5,9 +5,9 @@ helmCharts:
   - name: kube-prometheus-stack
     repo: https://prometheus-community.github.io/helm-charts
     version: 68.2.1
-    includeCRDs: false
-    releaseName: monitoring-prod
-    namespace: monitoring-prod
+    includeCRDs: true
+    releaseName: monitoring-production
+    namespace: monitoring-production
     valuesFile: values.yaml
 
 resources:
