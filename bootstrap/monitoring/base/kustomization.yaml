@@ -12,3 +12,4 @@ helmCharts:
 
 resources:
   - ns.yaml
+  - ingress.yaml
