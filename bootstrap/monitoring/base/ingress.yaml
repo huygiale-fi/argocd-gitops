@@ -23,4 +23,4 @@ spec:
               service:
                 name: monitoring-production-grafana
                 port:
-                  name: http
+                  name: http-web
