@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  namespace: monitoring-production
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    kubernetes.io/ingress.class: nginx
+spec:
+  ingressClassName: "nginx"
+  tls:
+    - hosts:
+        - grafana.devops4u.online
+      secretName: grafana-devops4u-online-tls
+  rules:
+    - host: grafana.devops4u.online
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: monitoring-production-grafana
+                port:
+                  name: http
