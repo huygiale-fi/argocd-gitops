@@ -27,22 +27,9 @@ prometheus:
         memory: 600Mi
 
 alertmanager:
-  enabled: true
-  config:
-    global:
-      resolve_timeout: 5m
-    route:
-      group_by: ['alertname']
-      group_wait: 10s
-      group_interval: 5m
-      repeat_interval: 1h
-      receiver: discord
-    receivers:
-      - name: discord
-        webhook_configs:
-          - url: https://discord.com/api/webhooks/1245666301259550720/VcDYTXkOw8Z8W6MbxTrIXYBQmM8l5oZAm_e7-5bU-h7w0kNKci8q3Zo7Cl7NPrEF6Hp2
-            send_resolved: true
+  enabled: true    
   alertmanagerSpec:
+    configSecret: alertmanager-custom-config
     replicas: 1
     retention: 120h
     storage:

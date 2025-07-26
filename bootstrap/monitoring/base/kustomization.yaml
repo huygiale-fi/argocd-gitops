@@ -14,3 +14,4 @@ resources:
   - ns.yaml
   - ingress.yaml
   - prometheusRule-custom.yaml
+  - secret-alertmanager.yaml
