@@ -27,19 +27,17 @@ prometheus:
         memory: 600Mi
 
 alertmanager:
-  enabled: true    
+  enabled: true
+  templateFiles:
+    discord.tmpl: |-
+      {{ define "discord.default" }}
+      {
+        "username": "Alertmanager",
+        "content": "**[{{ .CommonLabels.alertname }}]**: {{ .CommonAnnotations.summary }}\n{{ .CommonAnnotations.description }}"
+      }
+      {{ end }}    
   alertmanagerSpec:
-    configSecret: alertmanager-custom-config
-    templates:
-      - "/etc/alertmanager/template/discord.tmpl"
-    volumes:
-      - name: discord-template-volume
-        configMap:
-          name: alertmanager-discord-template
-    volumeMounts:
-      - name: discord-template-volume
-        mountPath: /etc/alertmanager/template
-        readOnly: true
+    configSecret: alertmanager-custom-config  
     replicas: 1
     retention: 120h
     storage:
