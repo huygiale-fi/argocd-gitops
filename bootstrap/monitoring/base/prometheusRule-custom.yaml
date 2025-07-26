@@ -1,0 +1,92 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: custom-alert-rules
+  namespace: monitoring-production
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+  - name: kubernetes-app-alerts
+    interval: 30s
+    rules:
+
+    # ArgoCD Server Down
+    - alert: ArgoCDServerDown
+      expr: absent(up{job=~"argocd-server"} == 1)
+      for: 2m
+      labels:
+        severity: critical
+      annotations:
+        summary: "ArgoCD server is down"
+        description: "The ArgoCD server has not been up for the last 2 minutes."
+
+    # Pod CrashLooping
+    - alert: PodCrashLoopBackOff
+      expr: kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"} > 0
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Pod is CrashLooping"
+        description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is crash looping."
+
+    # High Pod CPU usage
+    - alert: HighPodCPUUsage
+      expr: rate(container_cpu_usage_seconds_total{container!=""}[5m]) > 0.8
+      for: 2m
+      labels:
+        severity: warning
+      annotations:
+        summary: "High CPU usage on pod"
+        description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is using high CPU."
+
+    # Node Memory Pressure
+    - alert: NodeMemoryPressure
+      expr: kube_node_status_condition{condition="MemoryPressure",status="true"} == 1
+      for: 2m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Node memory pressure"
+        description: "Node {{ $labels.node }} has memory pressure."
+
+    # Disk pressure
+    - alert: NodeDiskPressure
+      expr: kube_node_status_condition{condition="DiskPressure",status="true"} == 1
+      for: 2m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Node disk pressure"
+        description: "Node {{ $labels.node }} has disk pressure."
+
+    # Node NotReady
+    - alert: NodeDown
+      expr: kube_node_status_condition{condition="Ready",status="true"} == 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Node down"
+        description: "Node {{ $labels.node }} is not ready."
+
+    # PVC Full
+    - alert: PVCStorageAlmostFull
+      expr: kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes > 0.9
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: "PVC almost full"
+        description: "PVC {{ $labels.persistentvolumeclaim }} in namespace {{ $labels.namespace }} is almost full."
+
+    # Network Receive/Transmit Errors
+    - alert: NetworkErrors
+      expr: rate(node_network_receive_errs_total[5m]) > 0 or rate(node_network_transmit_errs_total[5m]) > 0
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Network errors"
+        description: "High rate of network errors on interface {{ $labels.device }} of node {{ $labels.instance }}."
