@@ -28,16 +28,18 @@ prometheus:
 
 alertmanager:
   enabled: true
-  templateFiles:
-    discord.tmpl: |-
-      {{ define "discord.default" }}
-      {
-        "username": "Alertmanager",
-        "content": "**[{{ .CommonLabels.alertname }}]**: {{ .CommonAnnotations.summary }}\n{{ .CommonAnnotations.description }}"
-      }
-      {{ end }}    
+  config:
+    templates:
+      - /etc/alertmanager/config/*.tmpl
+  extraVolumes:
+    - name: alertmanager-templates
+      configMap:
+        name: alertmanager-templates
+  extraVolumeMounts:
+    - name: alertmanager-templates
+      mountPath: /etc/alertmanager/config
   alertmanagerSpec:
-    configSecret: alertmanager-custom-config  
+    configSecret: alertmanager-custom-config
     replicas: 1
     retention: 120h
     storage:
