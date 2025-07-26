@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-discord-template
+  namespace: monitoring-production
+data:
+  discord.tmpl: |
+    {{ define "discord.message" }}
+    **[{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}**
+    {{ range .Alerts }}
+    - *Instance:* {{ .Labels.instance }}
+    - *Severity:* {{ .Labels.severity }}
+    - *Description:* {{ .Annotations.description }}
+    - *Summary:* {{ .Annotations.summary }}
+    {{ end }}
+    {{ end }}

@@ -30,6 +30,16 @@ alertmanager:
   enabled: true    
   alertmanagerSpec:
     configSecret: alertmanager-custom-config
+    templates:
+      - "/etc/alertmanager/template/discord.tmpl"
+    volumes:
+      - name: discord-template-volume
+        configMap:
+          name: alertmanager-discord-template
+    volumeMounts:
+      - name: discord-template-volume
+        mountPath: /etc/alertmanager/template
+        readOnly: true
     replicas: 1
     retention: 120h
     storage:
