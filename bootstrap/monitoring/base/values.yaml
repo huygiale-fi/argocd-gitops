@@ -30,14 +30,14 @@ alertmanager:
   enabled: true
   config:
     templates:
-      - /etc/alertmanager/config/*.tmpl
+      - /etc/alertmanager/templates/*.tmpl
   extraVolumes:
     - name: alertmanager-templates
       configMap:
         name: alertmanager-templates
   extraVolumeMounts:
     - name: alertmanager-templates
-      mountPath: /etc/alertmanager/config
+      mountPath: /etc/alertmanager/templates
   alertmanagerSpec:
     configSecret: alertmanager-custom-config
     replicas: 1
