@@ -38,6 +38,7 @@ alertmanager:
   extraVolumeMounts:
     - name: alertmanager-templates
       mountPath: /etc/alertmanager/templates
+      readOnly: true
   alertmanagerSpec:
     configSecret: alertmanager-custom-config
     replicas: 1
