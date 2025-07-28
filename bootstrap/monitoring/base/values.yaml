@@ -28,19 +28,19 @@ prometheus:
 
 alertmanager:
   enabled: true
-  config:
-    templates:
-      - /etc/alertmanager/templates/*.tmpl
+  configSecret: alertmanager-custom-config
   extraVolumes:
-    - name: alertmanager-templates
+    - name: alert-templates
       configMap:
         name: alertmanager-templates
+        items:
+          - key: discord.tmpl
+            path: discord.tmpl  # Giữ nguyên tên file
   extraVolumeMounts:
-    - name: alertmanager-templates
-      mountPath: /etc/alertmanager/templates
+    - name: alert-templates
+      mountPath: /etc/alertmanager/config/templates  # Đúng path theo Prometheus Operator
       readOnly: true
   alertmanagerSpec:
-    configSecret: alertmanager-custom-config
     replicas: 1
     retention: 120h
     storage:
