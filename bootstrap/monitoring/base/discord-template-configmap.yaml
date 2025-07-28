@@ -4,32 +4,13 @@ metadata:
   name: alertmanager-templates
   namespace: monitoring-production
 data:
-  discord.tmpl: |
+  discord.tmpl: |-
     {{ define "discord.message" }}
-    {
-      "username": "Alertmanager",
-      "avatar_url": "https://prometheus.io/assets/alertmanager.png",
-      "embeds": [{
-        "title": "{{ .Status | toUpper }}: {{ .CommonLabels.alertname }}",
-        "description": "{{ .CommonAnnotations.description }}",
-        "color": "{{ if eq .Status "firing" }}16711680{{ else }}65280{{ end }}",
-        "fields": [
-          {
-            "name": "Severity",
-            "value": "{{ .CommonLabels.severity }}",
-            "inline": true
-          },
-          {
-            "name": "Environment",
-            "value": "{{ .CommonLabels.environment }}",
-            "inline": true
-          },
-          {
-            "name": "Details",
-            "value": "{{ range .Alerts }}{{ .Annotations.message }}\n{{ end }}"
-          }
-        ],
-        "timestamp": "{{ .Alerts.Firing.StartsAt.Format "2006-01-02T15:04:05Z07:00" }}"
-      }]
-    }
+    **[{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}**
+    {{ range .Alerts }}
+    - *Instance:* {{ .Labels.instance }}
+    - *Severity:* {{ .Labels.severity }}
+    - *Description:* {{ .Annotations.description }}
+    - *Summary:* {{ .Annotations.summary }}
+    {{ end }}
     {{ end }}
