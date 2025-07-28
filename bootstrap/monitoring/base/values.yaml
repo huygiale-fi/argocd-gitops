@@ -28,8 +28,10 @@ prometheus:
 
 alertmanager:
   enabled: true
-  config:
-    existingSecret: "alertmanager-custom-config"  
+  config: {}
+  configSecret: ""  # Đảm bảo xóa
+  existingSecret: "alertmanager-custom-config"
+  existingSecretKey: "alertmanager.yaml"  # Key chính xác trong Secret
   extraVolumes:
     - name: alert-templates
       configMap:
@@ -42,8 +44,6 @@ alertmanager:
       mountPath: /etc/alertmanager/config/templates  # Đúng path theo Prometheus Operator
       readOnly: true
   alertmanagerSpec:
-    configSecret: ""  # Xóa nếu có
-    secrets: ["alertmanager-custom-config"]
     replicas: 1
     retention: 120h
     storage:
