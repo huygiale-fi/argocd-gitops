@@ -10,7 +10,10 @@ grafana:
       
 prometheus:
   enabled: true
+  defaultRules:
+    create: false
   prometheusSpec:
+    prometheusRuleSelectorNilUsesHelmValues: false
     retention: 2d
     scrapeInterval: 30s
     evaluationInterval: 30s
@@ -28,22 +31,8 @@ prometheus:
 
 alertmanager:
   enabled: true
-  config: {}
-  configSecret: ""  # Đảm bảo xóa
-  existingSecret: "alertmanager-custom-config"
-  existingSecretKey: "alertmanager.yaml"  # Key chính xác trong Secret
-  extraVolumes:
-    - name: alert-templates
-      configMap:
-        name: alertmanager-templates
-        items:
-          - key: discord.tmpl
-            path: discord.tmpl  # Giữ nguyên tên file
-  extraVolumeMounts:
-    - name: alert-templates
-      mountPath: /etc/alertmanager/config/templates  # Đúng path theo Prometheus Operator
-      readOnly: true
   alertmanagerSpec:
+    configSecret: alertmanager-custom-config
     replicas: 1
     retention: 120h
     storage:

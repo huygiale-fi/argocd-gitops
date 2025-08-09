@@ -1,0 +1,13 @@
+{{ define "discord.default.message" }}
+🚨 **Alert:** {{ .CommonLabels.alertname }}
+🔴 **Status:** {{ .Status }}
+⚠️**Severity:** {{ .CommonLabels.severity }}
+
+📋 **Summary:** {{ .CommonAnnotations.summary }}
+📝 **Description:** {{ .CommonAnnotations.description }}
+
+🔖 **Labels:**
+{{ range .CommonLabels.SortedPairs }}
+• **{{ .Name }}** = `{{ .Value }}`
+{{ end }}
+{{ end }}

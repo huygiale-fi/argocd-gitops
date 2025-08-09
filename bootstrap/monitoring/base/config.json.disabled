@@ -1,4 +1,4 @@
 {
-  "appName": "monitoring-production",
-  "destNamespace": "monitoring-production"
+  "appName": "monitoring",
+  "destNamespace": "monitoring"
 }

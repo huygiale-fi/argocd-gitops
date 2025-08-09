@@ -17,19 +17,30 @@ spec:
       for: 2m
       labels:
         severity: critical
+        team: devops
+        category: system
+        environment: production
       annotations:
-        summary: "ArgoCD server is down"
-        description: "The ArgoCD server has not been up for the last 2 minutes."
-
+        summary: "*[{{ $labels.environment | toUpper }}]* ArgoCD server is down"
+        description: |
+          *Team:* `{{ $labels.team }}`
+          *Category:* `{{ $labels.category }}`
+          *Description:* `The ArgoCD server has not been up for the last 2 minutes.`
     # Pod CrashLooping
     - alert: PodCrashLoopBackOff
       expr: kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"} > 0
       for: 1m
       labels:
         severity: warning
+        team: devops
+        category: application
+        environment: production
       annotations:
-        summary: "Pod is CrashLooping"
-        description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is crash looping."
+        summary: "*[{{ $labels.environment | toUpper }}]* Pod is CrashLooping"
+        description: |
+          *Team:* `{{ $labels.team }}`
+          *Category:* `{{ $labels.category }}`
+          *Description:* `Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is crash looping.`
 
     # High Pod CPU usage
     - alert: HighPodCPUUsage
@@ -37,26 +48,39 @@ spec:
       for: 2m
       labels:
         severity: warning
+        team: devops
+        category: application
+        environment: production
       annotations:
-        summary: "High CPU usage on pod"
-        description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is using high CPU."
-
+        summary: "*[{{ $labels.environment | toUpper }}]* High CPU usage on pod"
+        description: |
+          *Team:* `{{ $labels.team }}`
+          *Category:* `{{ $labels.category }}`
+          *Description:* `Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is using high CPU.`
     # Node Memory Pressure
     - alert: NodeMemoryPressure
       expr: kube_node_status_condition{condition="MemoryPressure",status="true"} == 1
       for: 2m
       labels:
         severity: warning
+        team: devops
+        category: system
+        environment: production
       annotations:
-        summary: "Node memory pressure"
-        description: "Node {{ $labels.node }} has memory pressure."
-
+        summary: "*[{{ $labels.environment | toUpper }}]* Node memory pressure"
+        description: |
+          *Team:* `{{ $labels.team }}`
+          *Category:* `{{ $labels.category }}`
+          *Description:* `Node {{ $labels.node }} has memory pressure.`
     # Disk pressure
     - alert: NodeDiskPressure
       expr: kube_node_status_condition{condition="DiskPressure",status="true"} == 1
       for: 2m
       labels:
         severity: warning
+        team: devops
+        category: system
+        environment: production
       annotations:
         summary: "Node disk pressure"
         description: "Node {{ $labels.node }} has disk pressure."
@@ -67,6 +91,9 @@ spec:
       for: 1m
       labels:
         severity: critical
+        team: devops
+        category: system
+        environment: production
       annotations:
         summary: "Node down"
         description: "Node {{ $labels.node }} is not ready."

@@ -80,19 +80,20 @@ Your repo should look like:
 ```bash
 test-argocd/
 ├── apps/
-│   ├── app1/
-│   │   └── dev/
-│   │       └── config.json
-│   └── app2/
-│       └── production/
-│           └── config.json
+│   ├── app-name/
+│      └── dev/
+│          └── frontend/
+│              └── config.json
+│          └── backend/
+│              └── config.json
 ├── bootstrap/
-│   └── something/
+│   └── applications/
+│       ├── root.yaml/
+│       ├── apps.yaml
+│       ├── kustomization.yaml
+│   └── somethings/
 │       └── base/
 │           └── config.json
-├── root.yaml
-├── apps.yaml
-└── kustomization.yaml
 ```
 
 ---
@@ -111,9 +112,8 @@ Each `config.json` might look like:
 
 ```json
 {
-  "appName": "my-app",
-  "path": "apps/my-app/dev",
-  "destNamespace": "dev"
+  "appName": "my-app-environment",
+  "destNamespace": "my-app-environment"
 }
 ```
 
@@ -124,6 +124,7 @@ Each `config.json` might look like:
 Apply using `kustomize`:
 
 ```bash
+cd bootstrap/applications
 kubectl apply -k .
 ```
 
@@ -165,7 +166,11 @@ Open your ArgoCD dashboard. You will see:
 Push a new `config.json` into the appropriate path:
 
 ```json
-apps/new-service/dev/config.json
+apps/project-name/dev/frontend/config.json
+apps/project-name/dev/backend/config.json
+
+example: apps/blogger/dev/blogger-fe/config.json
+apps/blogger/dev/blogger-be/config.json
 ```
 
 ArgoCD detects and creates the app automatically.
