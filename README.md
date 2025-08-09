@@ -166,10 +166,11 @@ Open your ArgoCD dashboard. You will see:
 Push a new `config.json` into the appropriate path:
 
 ```json
-apps/project-name/dev/frontend/config.json
-apps/project-name/dev/backend/config.json
+apps/<project-name>/dev/frontend/config.json
+apps/<project-name>/dev/backend/config.json
 
-example: apps/blogger/dev/blogger-fe/config.json
+**Example**
+apps/blogger/dev/blogger-fe/config.json
 apps/blogger/dev/blogger-be/config.json
 ```
 
